@@ -72,6 +72,15 @@ const AdminController = {
 
   login(req, res) {
     const { email, password } = req.body;
+    if (email.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is required" });
+    } else if (password.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Password is required" });
+    }
     Admin.findOne({ email }).then((adminData) => {
       if (!adminData) {
         return res
@@ -101,8 +110,19 @@ const AdminController = {
 
   register(req, res) {
     Admin.create(req.body)
-      .then((adminData) => res.json(adminData))
-      .catch((err) => res.status(400).json(err.message));
+      .then((adminData) => res.json({ success: true, admin: adminData }))
+      .catch((err) => {
+        if (err.errors) {
+          if (err.errors.username) {
+            return res.status(400).json(err.errors.username.message);
+          } else if (err.errors.email) {
+            return res.status(400).json(err.errors.email.message);
+          } else if (err.errors.password) {
+            return res.status(400).json(err.errors.password.message);
+          }
+        }
+        res.status(400).json(err.message);
+      });
   },
 
   logout(req, res) {

@@ -23,7 +23,7 @@ const CustomerController = {
         })
         .catch((err) => res.status(400).json({ message: err.message }));
     } else {
-      Customer.findOne({ _id: req.params.id })
+      Customer.findOne({ _id: req.session.customerID })
         .then((customerData) => {
           if (!customerData) {
             res.status(400).json({ message: "Customer not found." });
@@ -51,9 +51,7 @@ const CustomerController = {
   },
 
   updateCustomer(req, res) {
-    Customer.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      runValidators: true,
-    })
+    Customer.findOneAndUpdate({ _id: req.params.id }, req.body)
       .then((customerData) => {
         if (!customerData) {
           res.status(400).json({ message: "Customer not found." });
@@ -94,6 +92,15 @@ const CustomerController = {
 
   login(req, res) {
     const { email, password } = req.body;
+    if (email.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is required" });
+    } else if (password.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Password is required" });
+    }
     Customer.findOne({ email })
       .then((customerData) => {
         if (!customerData) {
@@ -117,8 +124,7 @@ const CustomerController = {
                 req.session.email = customerData.email;
                 req.session.loggedIn = true;
                 req.session.admin = false;
-                req.session.wishlist = customerData.wishlist;
-                req.session.cart = customerData.cart;
+
                 res.json({ success: true, customer: customerData });
               });
             });
@@ -131,8 +137,21 @@ const CustomerController = {
 
   register(req, res) {
     Customer.create(req.body)
-      .then((customerData) => res.json(customerData))
-      .catch((err) => res.status(400).json(err.message));
+      .then((customerData) =>
+        res.json({ success: true, customer: customerData })
+      )
+      .catch((err) => {
+        if (err.errors) {
+          if (err.errors.username) {
+            return res.status(400).json(err.errors.username.message);
+          } else if (err.errors.email) {
+            return res.status(400).json(err.errors.email.message);
+          } else if (err.errors.password) {
+            return res.status(400).json(err.errors.password.message);
+          }
+        }
+        res.status(400).json(err.message);
+      });
   },
 
   logout(req, res) {
@@ -142,6 +161,7 @@ const CustomerController = {
       });
     } else res.status(404).end();
   },
+
 };
 
 module.exports = CustomerController;

@@ -4,8 +4,13 @@ const { Schema } = mongoose;
 
 const orderSchema = new Schema(
   {
-    customerID: [{ type: Schema.Types.ObjectId, ref: "Customer" }],
-    orderProducts: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    customerID: { type: Schema.Types.ObjectId, ref: "Customer" },
+    orderProducts: [
+      {
+        productID: { type: Schema.Types.ObjectId, ref: "Product" },
+        noOfItems: { type: Number },
+      },
+    ],
     orderAddress: {
       type: String,
       required: true,
@@ -14,7 +19,9 @@ const orderSchema = new Schema(
       type: String,
       validate: {
         validator: function (v) {
-          return /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/.test(v);
+          return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(
+            v
+          );
         },
         message: "Phone number is invalid!",
       },
@@ -24,14 +31,42 @@ const orderSchema = new Schema(
       type: String,
       required: [true, "Payment method is missing."],
     },
+    orderCardholder: {
+      type: String,
+      required: [true, "Cardholder is missing."],
+    },
+    orderCardNumber: {
+      type: Number,
+      required: [true, "Card number is missing."],
+      validate: {
+        validator: function (value) {
+          return value.toString().length === 19;
+        },
+        message: () => `Card number must be a 19-digit number.`,
+      },
+    },
+    orderExpireDate: {
+      type: String,
+      required: [true, "Card's expire date is missing."],
+    },
+    orderCVC: {
+      type: Number,
+      required: [true, "CVC is missing."],
+      validate: {
+        validator: function (value) {
+          return value.toString().length === 3;
+        },
+        message: () => `CVC must be a 3-digit number.`,
+      },
+    },
     orderSubtotal: {
       type: Number,
       required: [true, "Subtotal is missing."],
     },
-    orderTax: {
-      type: Number,
-      required: true,
-    },
+    // orderTax: {
+    //   type: Number,
+    //   required: true,
+    // },
   },
   {
     collection: "Orders",

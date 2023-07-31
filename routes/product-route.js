@@ -16,15 +16,15 @@ const {
 
 router.route("/").get(getProducts).post(createProduct);
 
+router.route("/new-coffee").get(getNewCoffee);
+router.route("/recommend-products").get(getRecommendedProduct);
+router.route("/best-seller").get(getBestSeller);
+router.route("/search").get(searchProduct);
+
 router
   .route("/:id")
   .get(getProductById)
   .put(updateProduct)
   .delete(deleteProduct);
-
-router.route("/new-coffee").get(getNewCoffee);
-router.route("/recommend-products").get(getRecommendedProduct);
-router.route("/best-seller").get(getBestSeller);
-router.route("/search").get(searchProduct);
 
 module.exports = router;

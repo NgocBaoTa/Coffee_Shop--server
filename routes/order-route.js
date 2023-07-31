@@ -9,7 +9,9 @@ const {
   createOrder,
 } = require("../controllers/order-controllers");
 
-router.route("/").get(getOrders).post(createOrder);
+router.route("/").post(createOrder);
+
+router.route("/search").get(getOrders);
 
 router
   .route("/:id")

@@ -6,17 +6,12 @@ const Category = require("../models/Category");
 const ProductController = {
   async getProducts(req, res) {
     const { productName, categoryName } = req.query;
-    let categoryID;
-    if (categoryName) {
-      let category = await Category.findOne({ categoryName: categoryName });
-      categoryID = category.id;
-    }
     let query = {};
 
-    if (categoryName) query.categoryID = categoryID;
+    if (categoryName) query.categoryName = categoryName;
     if (productName) query.productName = productName;
 
-    Product.find(query)
+    await Product.find(query)
       .select("-__v")
       .then((productData) => {
         if (!productData) {
@@ -28,8 +23,8 @@ const ProductController = {
       .catch((err) => res.status(400).json({ message: err.message }));
   },
 
-  getProductById(req, res) {
-    Product.findOne({ _id: req.params.id })
+  async getProductById(req, res) {
+    await Product.findOne({ _id: req.params.id })
       .select("-__v")
       .then((productData) => {
         if (!productData) {
@@ -43,9 +38,9 @@ const ProductController = {
       });
   },
 
-  createProduct(req, res) {
+  async createProduct(req, res) {
     if (req.session.admin) {
-      Product.create(req.body)
+      await Product.create(req.body)
         .then((newProduct) => {
           res.status(200).json(newProduct);
         })
@@ -55,9 +50,9 @@ const ProductController = {
     }
   },
 
-  updateProduct(req, res) {
+  async updateProduct(req, res) {
     if (req.session.admin) {
-      Product.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      await Product.findOneAndUpdate({ _id: req.params.id }, req.body, {
         runValidators: true,
       })
         .then((productData) => {
@@ -71,9 +66,9 @@ const ProductController = {
     }
   },
 
-  deleteProduct(req, res) {
+  async deleteProduct(req, res) {
     if (req.session.admin) {
-      Product.findOneAndDelete({ _id: req.params.id })
+      await Product.findOneAndDelete({ _id: req.params.id })
         .then((productData) => {
           if (!productData) {
             res.status(400).json({ message: "Product not found." });
@@ -87,10 +82,10 @@ const ProductController = {
     }
   },
 
-  searchProduct(req, res) {
+  async searchProduct(req, res) {
     const { searchText } = req.query;
     if (searchText.length === 0) {
-      Product.find({})
+      await Product.find({ categoryName: "Product" })
         .then((productData) => {
           res.status(200).json(productData);
         })
@@ -98,7 +93,10 @@ const ProductController = {
           res.status(400).json(err.message);
         });
     } else {
-      Product.find({ $text: { $search: searchText } })
+      await Product.find({
+        categoryName: "Product",
+        productName: { $regex: searchText, $options: "i" },
+      })
         .then((productData) => {
           if (!productData || productData.length === 0) {
             res.status(200).json({ message: "Product not found" });
@@ -112,10 +110,8 @@ const ProductController = {
     }
   },
 
-  getNewCoffee(req, res) {
-    let category = Category.findOne({ categoryName: req.query.categoryName });
-    let categoryID = category._id.toString();
-    Product.find({ categoryID })
+  async getNewCoffee(req, res) {
+    await Product.find({ categoryName: "Coffee" })
       .select("-__v")
       .sort({ createAt: -1 })
       .limit(5)
@@ -127,10 +123,8 @@ const ProductController = {
       });
   },
 
-  getRecommendedProduct(req, res) {
-    let category = Category.findOne({ categoryName: "Product" });
-    let categoryID = category._id.toString();
-    Product.find({ categoryID })
+  async getRecommendedProduct(req, res) {
+    await Product.find({ categoryName: "Product" })
       .select("-__v")
       .sort({ createAt: -1 })
       .limit(5)
@@ -142,10 +136,8 @@ const ProductController = {
       });
   },
 
-  getBestSeller(req, res) {
-    let category = Category.findOne({ categoryName: "Coffee" });
-    let categoryID = category._id.toString();
-    Product.find({ categoryID })
+  async getBestSeller(req, res) {
+    await Product.find({ categoryName: "Coffee" })
       .select("-__v")
       .sort({ productSold: -1 })
       .limit(3)

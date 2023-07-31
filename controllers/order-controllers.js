@@ -4,15 +4,16 @@ const Order = require("../models/Order");
 
 const OrderController = {
   getOrders(req, res) {
-    const { customerId, orderDate, orderPayMethod, orderPhone } = req.query;
+    const { customerID, orderDate, orderPayMethod, orderPhone } = req.query;
     let query = {};
 
-    if (customerId) query.customerId = new ObjectID(customerId);
+    if (customerID) query.customerID = customerID;
     if (orderDate) query.orderDate = orderDate;
     if (orderPhone) query.orderPhone = orderPhone;
     if (orderPayMethod) query.orderPayMethod = orderPayMethod;
 
     Order.find(query)
+      .populate("orderProducts.productID")
       .select("-__v")
       .then((orderData) => {
         if (!orderData || orderData.length === 0) {
@@ -42,7 +43,7 @@ const OrderController = {
   createOrder(req, res) {
     Order.create(req.body)
       .then((newOrder) => {
-        res.status(200).json(newOrder);
+        res.status(200).json({ success: true, order: newOrder });
       })
       .catch((error) => {
         res.status(400).json(error.message);

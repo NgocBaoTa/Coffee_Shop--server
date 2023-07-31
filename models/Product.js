@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 const productSchema = new Schema(
   {
-    categoryID: [{ type: Schema.Types.ObjectId, ref: "Category" }],
+    categoryName: { type: String, ref: "Category" },
     productName: {
       type: String,
       required: [true, "Product's name is missing."],

@@ -17,11 +17,10 @@ app.use(
 );
 app.use(bodyParser.json());
 // app.use(express.urlencoded({ extended: true }));
-app.use(cors({ withCredentials: true, origin: "https://localhost:5000" }));
+app.use(cors());
 
 app.use(cookieParser());
 
-// const mongoURI = "mongodb://127.0.0.1:27017/Coffee_Shop";
 const mongoURI =
   // "mongodb+srv://baongocta:baongocta@cluster0.poueqht.mongodb.net/directConnection=true";
   "mongodb://127.0.0.1:27017/Coffee_Shop";
@@ -48,7 +47,7 @@ app.use(
     rolling: true,
     store,
     cookie: {
-      expires: 600 * 1000 * 100,
+      expires: 60 * 1000,
     },
   })
 );

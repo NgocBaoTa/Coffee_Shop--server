@@ -27,9 +27,14 @@ const customerSchema = new Schema(
       minLength: [8, "Password must be at least 8 characters."],
     },
     avatarUrl: String,
-    cart: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    cart: [
+      {
+        productID: { type: Schema.Types.ObjectId, ref: "Product" },
+        no: { type: Number },
+      },
+    ],
     wishlist: [{ type: Schema.Types.ObjectId, ref: "Product" }],
-    boughtProduct: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    order: [{ type: Schema.Types.ObjectId, ref: "Order" }],
   },
   {
     collection: "Customers",
