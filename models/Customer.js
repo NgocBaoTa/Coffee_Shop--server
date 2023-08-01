@@ -34,7 +34,7 @@ const customerSchema = new Schema(
       },
     ],
     wishlist: [{ type: Schema.Types.ObjectId, ref: "Product" }],
-    order: [{ type: Schema.Types.ObjectId, ref: "Order" }],
+    // order: [{ type: Schema.Types.ObjectId, ref: "Order" }],
   },
   {
     collection: "Customers",

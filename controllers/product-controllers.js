@@ -51,7 +51,7 @@ const ProductController = {
   },
 
   async updateProduct(req, res) {
-    if (req.session.admin) {
+    // if (req.session.admin) {
       await Product.findOneAndUpdate({ _id: req.params.id }, req.body, {
         runValidators: true,
       })
@@ -63,7 +63,7 @@ const ProductController = {
           }
         })
         .catch((err) => res.status(500).json(err));
-    }
+    // }
   },
 
   async deleteProduct(req, res) {

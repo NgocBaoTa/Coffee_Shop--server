@@ -15,6 +15,22 @@ const orderSchema = new Schema(
       type: String,
       required: true,
     },
+    orderPostalCode: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i.test(
+            v
+          );
+        },
+        message: "Postal Code is invalid!",
+      },
+      required: true,
+    },
+    orderReceiver: {
+      type: String,
+      required: true,
+    },
     orderPhone: {
       type: String,
       validate: {
