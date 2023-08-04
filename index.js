@@ -42,12 +42,12 @@ app.use(
   session({
     key: "random",
     secret: "random", // key that will sign the cookie that saved in the browser
-    resave: false, // don't create a new session for every requests in the same browser and with same user
+    resave: true, // don't create a new session for every requests in the same browser and with same user
     saveUninitialized: false, //if we have not touched or modified the session, we don't want it to be saved
     rolling: true,
     store,
     cookie: {
-      expires: 60 * 1000,
+      expires: 60 * 1000 * 24,
     },
   })
 );

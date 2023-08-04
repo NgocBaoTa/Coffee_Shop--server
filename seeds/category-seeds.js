@@ -2,7 +2,7 @@ const seedCategories = [
 
     { categoryName: "Coffee" },
     { categoryName: "Product" },
-    { categoryName: "Patries" },
+    { categoryName: "Pastries" },
 
 ];
 

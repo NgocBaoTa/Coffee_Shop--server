@@ -227,8 +227,8 @@ const seedProducts = [
   },
 
   {
-    categoryName: "Patries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
-    productName: "Patry 1",
+    categoryName: "Pastries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
+    productName: "Pastry 1",
     productPrice: 2.99,
     productQuantity: 23,
     productImage:
@@ -236,14 +236,14 @@ const seedProducts = [
     productDescription: {
       description: "Testing...",
       story: "Once upon a time...",
-      details: ["Detail 1 for regular patry", "Detail 2", "This is detail 3"], // no clue how you did this...
+      details: ["Detail 1 for regular pastry", "Detail 2", "This is detail 3"], // no clue how you did this...
     },
     productSold: 10,
   },
 
   {
-    categoryName: "Patries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
-    productName: "Patry 2",
+    categoryName: "Pastries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
+    productName: "Pastry 2",
     productPrice: 3.99,
     productQuantity: 10,
     productImage:
@@ -251,14 +251,14 @@ const seedProducts = [
     productDescription: {
       description: "Testing...",
       story: "Once upon a time...",
-      details: ["Detail 1 for regular patry", "Detail 2", "This is detail 3"], // no clue how you did this...
+      details: ["Detail 1 for regular pastry", "Detail 2", "This is detail 3"], // no clue how you did this...
     },
     productSold: 1,
   },
 
   {
-    categoryName: "Patries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
-    productName: "Patry 3",
+    categoryName: "Pastries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
+    productName: "Pastry 3",
     productPrice: 4.99,
     productQuantity: 25,
     productImage:
@@ -266,14 +266,14 @@ const seedProducts = [
     productDescription: {
       description: "Testing...",
       story: "Once upon a time...",
-      details: ["Detail 1 for regular patry", "Detail 2", "This is detail 3"], // no clue how you did this...
+      details: ["Detail 1 for regular pastry", "Detail 2", "This is detail 3"], // no clue how you did this...
     },
     productSold: 8,
   },
 
   {
-    categoryName: "Patries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
-    productName: "Patry 4",
+    categoryName: "Pastries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
+    productName: "Pastry 4",
     productPrice: 2.59,
     productQuantity: 30,
     productImage:
@@ -281,14 +281,14 @@ const seedProducts = [
     productDescription: {
       description: "Testing...",
       story: "Once upon a time...",
-      details: ["Detail 1 for regular patry", "Detail 2", "This is detail 3"], // no clue how you did this...
+      details: ["Detail 1 for regular pastry", "Detail 2", "This is detail 3"], // no clue how you did this...
     },
     productSold: 16,
   },
 
   {
-    categoryName: "Patries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
-    productName: "Patry 5",
+    categoryName: "Pastries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
+    productName: "Pastry 5",
     productPrice: 4.67,
     productQuantity: 33,
     productImage:
@@ -296,14 +296,14 @@ const seedProducts = [
     productDescription: {
       description: "Testing...",
       story: "Once upon a time...",
-      details: ["Detail 1 for regular patry", "Detail 2", "This is detail 3"], // no clue how you did this...
+      details: ["Detail 1 for regular pastry", "Detail 2", "This is detail 3"], // no clue how you did this...
     },
     productSold: 12,
   },
 
   {
-    categoryName: "Patries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
-    productName: "Patry 6",
+    categoryName: "Pastries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
+    productName: "Pastry 6",
     productPrice: 3.49,
     productQuantity: 22,
     productImage:
@@ -311,14 +311,14 @@ const seedProducts = [
     productDescription: {
       description: "Testing...",
       story: "Once upon a time...",
-      details: ["Detail 1 for regular patry", "Detail 2", "This is detail 3"], // no clue how you did this...
+      details: ["Detail 1 for regular pastry", "Detail 2", "This is detail 3"], // no clue how you did this...
     },
     productSold: 19,
   },
 
   {
-    categoryName: "Patries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
-    productName: "Patry 7",
+    categoryName: "Pastries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
+    productName: "Pastry 7",
     productPrice: 4.9,
     productQuantity: 20,
     productImage:
@@ -326,14 +326,14 @@ const seedProducts = [
     productDescription: {
       description: "Testing...",
       story: "Once upon a time...",
-      details: ["Detail 1 for regular patry", "Detail 2", "This is detail 3"], // no clue how you did this...
+      details: ["Detail 1 for regular pastry", "Detail 2", "This is detail 3"], // no clue how you did this...
     },
     productSold: 10,
   },
 
   {
-    categoryName: "Patries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
-    productName: "Patry 8",
+    categoryName: "Pastries", // MAY require changed from ID to NAME due unless you wanna make it complicated for seeding
+    productName: "Pastry 8",
     productPrice: 10.99,
     productQuantity: 23,
     productImage:
@@ -341,7 +341,7 @@ const seedProducts = [
     productDescription: {
       description: "Testing...",
       story: "Once upon a time...",
-      details: ["Detail 1 for regular patry", "Detail 2", "This is detail 3"], // no clue how you did this...
+      details: ["Detail 1 for regular pastry", "Detail 2", "This is detail 3"], // no clue how you did this...
     },
     productSold: 0,
   },

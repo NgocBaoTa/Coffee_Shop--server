@@ -51,15 +51,17 @@ const CustomerController = {
   },
 
   updateCustomer(req, res) {
-    Customer.findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then((customerData) => {
-        if (!customerData) {
-          res.status(400).json({ message: "Customer not found." });
-        } else {
-          res.status(200).json(customerData);
-        }
-      })
-      .catch((err) => res.status(500).json(err));
+    if (req.session.loggedIn) {
+      Customer.findOneAndUpdate({ _id: req.params.id }, req.body)
+        .then((customerData) => {
+          if (!customerData) {
+            res.status(400).json({ message: "Customer not found." });
+          } else {
+            res.status(200).json(customerData);
+          }
+        })
+        .catch((err) => res.status(500).json(err));
+    }
   },
 
   deleteCustomer(req, res) {
@@ -117,7 +119,6 @@ const CustomerController = {
                   message: "Incorrect email or password",
                 });
               }
-
               req.session.save(() => {
                 req.session.customerID = customerData._id;
                 req.session.username = customerData.username;
@@ -162,6 +163,10 @@ const CustomerController = {
     } else res.status(404).end();
   },
 
+  getSessionCheck(req, res) {
+    if (req.session.loggedIn) res.status(200).json({ success: true });
+    else res.status(200).json({ success: false });
+  },
 };
 
 module.exports = CustomerController;

@@ -52,17 +52,17 @@ const ProductController = {
 
   async updateProduct(req, res) {
     // if (req.session.admin) {
-      await Product.findOneAndUpdate({ _id: req.params.id }, req.body, {
-        runValidators: true,
+    await Product.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      runValidators: true,
+    })
+      .then((productData) => {
+        if (!productData) {
+          res.status(400).json({ message: "Product not found." });
+        } else {
+          res.status(200).json(productData);
+        }
       })
-        .then((productData) => {
-          if (!productData) {
-            res.status(400).json({ message: "Product not found." });
-          } else {
-            res.status(200).json(productData);
-          }
-        })
-        .catch((err) => res.status(500).json(err));
+      .catch((err) => res.status(500).json(err));
     // }
   },
 
