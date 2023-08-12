@@ -14,10 +14,14 @@ const seedAdmins = require("./admin-seeds");
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/Coffee_Shop', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(
+  process.env.MONGODB_URI ||
+    'mongodb+srv://baongocta:baongocta@cluster0.poueqht.mongodb.net/Coffee_Shop',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const seedData = async () => {
 
