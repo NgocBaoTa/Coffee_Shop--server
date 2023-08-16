@@ -48,7 +48,7 @@ app.use(
     rolling: true,
     store,
     cookie: {
-      expires: 60 * 1000 * 24,
+      expires: 60 * 1000 * 60 * 24,
     },
   })
 );
