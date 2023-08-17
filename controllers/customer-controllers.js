@@ -158,6 +158,7 @@ const CustomerController = {
   logout(req, res) {
     if (req.session.loggedIn) {
       req.session.destroy(() => {
+        res.clearCookie("coffee_session");
         res.status(204).end();
       });
     } else res.status(404).end();
