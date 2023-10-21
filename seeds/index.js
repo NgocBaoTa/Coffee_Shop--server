@@ -24,7 +24,6 @@ mongoose.connect(
 );
 
 const seedData = async () => {
-
     const customerData = seedCustomers.map(
       async (customer) => {
         const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
