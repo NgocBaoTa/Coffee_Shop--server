@@ -1,61 +1,57 @@
-const mongoose = require('mongoose');
+/** @format */
 
-const Customer = require('../models/Customer');
-const Admin = require('../models/Admin');
-const Product = require('../models/Product');
-const Category = require('../models/Category');
-const Order = require('../models/Order');
+const mongoose = require("mongoose");
 
-const seedCustomers = require('./customer-seeds');
-const seedCategories = require('./category-seeds');
-const seedProducts = require('./product-seeds');
+const Customer = require("../models/Customer");
+const Admin = require("../models/Admin");
+const Product = require("../models/Product");
+const Category = require("../models/Category");
+const Order = require("../models/Order");
+
+const seedCustomers = require("./customer-seeds");
+const seedCategories = require("./category-seeds");
+const seedProducts = require("./product-seeds");
 const seedAdmins = require("./admin-seeds");
 
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const SALT_WORK_FACTOR = 10;
 
-mongoose.connect(
-  process.env.MONGODB_URI ||
-    'mongodb+srv://baongocta:baongocta@cluster0.poueqht.mongodb.net/Coffee_Shop',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const seedData = async () => {
-    const customerData = seedCustomers.map(
-      async (customer) => {
-        const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-        let password = await bcrypt.hash(customer.password, salt);
-        customer.password = password;
-        return customer;
-    })
-    
-    const seedCustomerData = await Promise.all(customerData)
+  const customerData = seedCustomers.map(async (customer) => {
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+    let password = await bcrypt.hash(customer.password, salt);
+    customer.password = password;
+    return customer;
+  });
 
-    await Customer.deleteMany({});
-    await Customer.insertMany(seedCustomerData);
+  const seedCustomerData = await Promise.all(customerData);
 
-    console.log("- - - Seeded Customer Data - - -");
+  await Customer.deleteMany({});
+  await Customer.insertMany(seedCustomerData);
 
-    await Category.deleteMany({});
-    await Category.insertMany(seedCategories);
+  console.log("- - - Seeded Customer Data - - -");
 
-    console.log("- - - Seeded Category Data - - -");
+  await Category.deleteMany({});
+  await Category.insertMany(seedCategories);
 
-    await Product.deleteMany({});
-    await Product.insertMany(seedProducts);
+  console.log("- - - Seeded Category Data - - -");
 
-    console.log("- - - Seeded Product Data - - -");
+  await Product.deleteMany({});
+  await Product.insertMany(seedProducts);
 
-    await Admin.deleteMany({});
-    await Admin.insertMany(seedAdmins);
+  console.log("- - - Seeded Product Data - - -");
 
-    console.log("- - - Seeded Admin Data - - -");
+  await Admin.deleteMany({});
+  await Admin.insertMany(seedAdmins);
 
-}
+  console.log("- - - Seeded Admin Data - - -");
+};
 
-seedData().then(() =>{
-    mongoose.connection.close();
+seedData().then(() => {
+  mongoose.connection.close();
 });
