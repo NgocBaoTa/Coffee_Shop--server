@@ -3,6 +3,9 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+
+require("dotenv").config();
+
 const port = process.env.PORT || 8000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -21,8 +24,8 @@ app.use(cors());
 
 app.use(cookieParser());
 
-const mongoURI =
-  process.env.MONGODB_URI 
+const mongoURI = process.env.MONGODB_URI;
+  
 (async function () {
   try {
     await mongoose.connect(mongoURI, {});
